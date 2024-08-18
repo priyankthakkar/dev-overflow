@@ -5,10 +5,11 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { Metadata } from "next";
 import React from "react";
 import "./globals.css";
-import { Metadata } from "next";
 // eslint-disable-next-line camelcase
+import { ThemeProvider } from "@/context/ThemeProvider";
 import { Inter, Space_Grotesk } from "next/font/google";
 
 const inter = Inter({
@@ -45,19 +46,21 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
-        <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-          <header>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <main>{children}</main>
-        </body>
-      </html>
+      <ThemeProvider>
+        <html lang="en">
+          <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+            <header>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </header>
+            <main>{children}</main>
+          </body>
+        </html>
+      </ThemeProvider>
     </ClerkProvider>
   );
 }
